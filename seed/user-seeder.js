@@ -2,7 +2,7 @@ var User= require('../models/user');
 var bcrypt=require('bcrypt-nodejs');
 var mongoose= require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('localhost:27017/HRMS');
+mongoose.connect('mongodb://localhost:27017/HRMS', {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
 var users=[
 

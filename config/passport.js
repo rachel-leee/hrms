@@ -12,6 +12,51 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
+
+passport.use('local.signup', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, function (req, email, password, done) {
+    req.checkBody('email', 'Invalid email').notEmpty().isEmail();
+    req.checkBody('password', 'Invalid password').notEmpty().isLength({min: 6});
+    var errors = req.validationErrors();
+    if (errors) {
+        var messages = [];
+        errors.forEach(function (error) {
+            messages.push(error.msg);
+        });
+        return done(null, false, req.flash('error', messages));
+    }
+    User.findOne({'email': email}, function (err, user) {
+        if (err) {
+            return done(err);
+        }
+
+        var newUser = new User();
+        newUser.email = email;
+        newUser.type = "admin";
+        
+        newUser.password = newUser.encryptPassword(password);
+        newUser.name = req.body.name,
+        newUser.dateOfBirth = new Date(req.body.DOB),
+        newUser.contactNumber = req.body.number,
+
+        newUser.dateAdded = new Date();
+
+        if (user) {
+            exports.User = newUser;
+            return done(null, false, {message: 'Email is already in use'});
+        }
+        newUser.save(function (err, result) {
+            if (err) {
+                return done(err);
+            }
+            return done(null, newUser);
+        });
+    });
+}));
+
 passport.use('local.add-employee', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',

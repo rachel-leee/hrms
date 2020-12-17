@@ -24,17 +24,6 @@ router.post('/signup', passport.authenticate('local.signup', {
     failureFlash: true,
 }));
 
-/**
- * Description:
- * Displays login page to the user
- *
-
- *
- * Last Updated: 26th November, 2016
- *
- * Known Bugs: None
- */
-
 router.get('/', function viewLoginPage(req, res, next) {
     var messages = req.flash('error');
 
@@ -46,16 +35,6 @@ router.get('/', function viewLoginPage(req, res, next) {
     });
 });
 
-/**
- * Description:
- * Logs user out from the application by clearing its session.
- *
-
- *
- * Last Updated: 26th November, 2016
- *
- * Known Bugs: None
- */
 
 router.get('/logout', isLoggedIn, function logoutUser(req, res, next) {
 
@@ -105,16 +84,7 @@ router.get('/check-type', function checkTypeOfLoggedInUser(req, res, next) {
 
 });
 
-/**
- * Description:
- * Authenticates user login request and on success redirects user to his/her home page
- *
 
- *
- * Last Updated: 26th November, 2016
- *
- * Known Bugs: None
- */
 
 router.post('/login', passport.authenticate('local.signin', {
     successRedirect: '/check-type',
