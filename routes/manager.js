@@ -351,7 +351,7 @@ router.get('/view-attendance-current', function viewCurrentMarkedAttendance(req,
 router.get('/apply-for-leave', function applyForLeave(req, res, next) {
 
     res.render('Manager/managerApplyForLeave', {
-        title: 'Apply for Leave',
+        title: 'Apply for Shift',
         csrfToken: req.csrfToken(),
         userName: req.session.user.name
     });
@@ -383,7 +383,7 @@ router.get('/applied-leaves', function appliedLeaves(req, res, next) {
         }
 
         res.render('Manager/managerAppliedLeaves', {
-            title: 'List Of Applied Leaves',
+            title: 'List Of Applied Shifts',
             csrfToken: req.csrfToken(),
             hasLeave: hasLeave,
             leaves: leaveChunks,

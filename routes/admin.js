@@ -153,14 +153,6 @@ router.get('/all-employee-projects/:id', function getAllEmployeePojects(req, res
     });
 });
 
-/**
- * Description:
- * Displays the list of all the leave applications which are applied by all employees.
- *
- * Last Updated: 29th November, 2016
- *
- * Known Bugs: None
- */
 router.get('/leave-applications', function getLeaveApplications(req, res, next) {
 
     var leaveChunks = [];
@@ -190,7 +182,7 @@ router.get('/leave-applications', function getLeaveApplications(req, res, next) 
         setTimeout(render_view, 900);
         function render_view() {
             res.render('Admin/allApplications', {
-                title: 'List Of Leave Applications',
+                title: 'List Of Shift Applications',
                 csrfToken: req.csrfToken(),
                 hasLeave: hasLeave,
                 leaves: leaveChunks,

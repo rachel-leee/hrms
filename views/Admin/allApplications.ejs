@@ -55,7 +55,7 @@
             </li>
             <li class="active">
                 <a href="/admin/leave-applications"><span class="fa-stack fa-lg pull-left"><i
-                                class="fa fa-envelope-square fa-stack-1x "></i></span> Leave Applications</a></li>
+                                class="fa fa-envelope-square fa-stack-1x "></i></span> Shift Applications</a></li>
             <li data-toggle="modal" data-target="#myModal">
                 <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-list-ol fa-stack-1x "></i></span>View
                     Attendance</a>
@@ -76,17 +76,17 @@
         <div class="container-fluid xyz">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Leave Applications</h1>
+                    <h1>Shift Applications</h1>
                     <div style="height:717px; overflow: auto">
                         <% if(hasLeave === 1){ %>
                         <table id="example" class="display" cellspacing="0" style="height: 10%; overflow: auto;">
                             <thead>
                             <tr>
                                 <th>Applicant's Name</th>
-                                <th>Title</th>
-                                <th>Type</th>
+                                <th>Branch</th>
+                                <th>Timeslot</th>
                                 <th>Applied Date</th>
-                                <th>Period(Days)</th>
+                                <th>Duration(Hours)</th>
                                 <th>Status</th>
 
                                 <th></th>
@@ -95,10 +95,10 @@
                             <tfoot>
                             <tr>
                                 <th>Applicant's Name</th>
-                                <th>Title</th>
-                                <th>Type</th>
+                                <th>Branch</th>
+                                <th>Timeslot</th>
                                 <th>Applied Date</th>
-                                <th>Period(Days)</th>
+                                <th>Duration(Hours)</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
@@ -124,7 +124,7 @@
                             </tbody>
                         </table>
                         <% }else{ %>
-                        <p>Leave Applications not found</p>
+                        <p>Shift Applications not found</p>
                         <% } %>
                     </div>
                 </div>

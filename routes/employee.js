@@ -45,7 +45,7 @@ router.get('/', function viewHome(req, res, next) {
 
 router.get('/apply-for-leave', function applyForLeave(req, res, next) {
     res.render('Employee/applyForLeave', {
-        title: 'Apply for Leave',
+        title: 'Apply for Shift',
         csrfToken: req.csrfToken(),
         userName: req.session.user.name
     });
@@ -76,7 +76,7 @@ router.get('/applied-leaves', function viewAppliedLeaves(req, res, next) {
         }
 
         res.render('Employee/appliedLeaves', {
-            title: 'List Of Applied Leaves',
+            title: 'List Of Applied Shifts',
             csrfToken: req.csrfToken(),
             hasLeave: hasLeave,
             leaves: leaveChunks,
@@ -335,6 +335,140 @@ router.post('/mark-employee-attendance', function markEmployeeAttendance(req, re
 
 
 });
+/*
+router.get('/logEntry/:date', function(req, res) {
+  if (req.isAuthenticated()) {
+    const now = req.params.date;
+    const nowDayTime = now.substring(0, 25);
+    const timeZone = now.substring(25, now.length);
+    const rawNow = Date.now();
+    const post = new Post({
+      username: nameUser,
+      entryDayTime: nowDayTime,
+      entryTimeZone: timeZone,
+      rawEntry: rawNow,
+      complete: false
+    });
+    post.save(function(err) {
+      if (err) {
+        console.log(err);
+      }
+      res.redirect('/logged');
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+app.get('/logExit/:date', function(req, res) {
+  if (req.isAuthenticated()) {
+    const now = req.params.date;
+    const nowDayTime = now.substring(0, 25);
+    const timeZone = now.substring(25, now.length);
+    const rawNow = Date.now();
+
+    function convertMS(milliseconds) {
+      var day, hour, minute, seconds;
+      seconds = Math.floor(milliseconds / 1000);
+      minute = Math.floor(seconds / 60);
+      seconds = seconds % 60;
+      hour = Math.floor(minute / 60);
+      minute = minute % 60;
+      day = Math.floor(hour / 24);
+      hour = hour % 24;
+      function pad(n) {
+        return n < 10 ? '0' + n : n;
+      }
+
+      return {
+        day: pad(day),
+        hour: pad(hour),
+        minute: pad(minute),
+        seconds: pad(seconds)
+      };
+    }
+
+    Post.find({ username: nameUser }).exec(function(err, doc) {
+      if (err) {
+        console.log(err);
+      }
+      const obj = doc[doc.length - 1];
+      let dur = convertMS(rawNow - obj.rawEntry);
+      const timeStr = dur.hour + ':' + dur.minute + ':' + dur.seconds;
+
+      Post.findOneAndUpdate(
+        { _id: obj._id },
+        {
+          $set: {
+            exitDayTime: nowDayTime,
+            rawExit: rawNow,
+            complete: true,
+            duration: timeStr
+          }
+        },
+        { new: true } // return updated post
+      ).exec(function(err, post) {
+        if (err) {
+          console.log(err);
+        }
+        res.redirect('/');
+      });
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+router.get('/logged', function(req, res) {
+  if (req.isAuthenticated()) {
+    User.findOne({ username: username }).exec(function(err, doc) {
+      if (doc.isAdmin === true) {
+        Post.find().exec(function(err, doc) {
+          res.render('all-entries', {
+            finalDoc: doc,
+            username: username
+          });
+        });
+      } else {
+        Post.find({ username: username }).exec(function(err, doc) {
+          const finalDoc = doc;
+          if (err) {
+            console.log("poop");
+            console.log(err);
+          } else if (Array.isArray(doc) && doc.length) {
+            const arr = doc[doc.length - 1];
+            Post.findById(arr._id, function(err, doc) {
+              if (err) {
+                console.log("here");
+                console.log(err);
+              } else if (doc.complete === true) {
+                res.render('loggedFull', {
+                  username: username,
+                  finalDoc: finalDoc
+                });
+              } else {
+                res.render('logged', {
+                  username: username,
+                  finalDoc: finalDoc
+                });
+              }
+            });
+          } else {
+            // array is empty
+            res.render('loggedFull', {
+              username: username,
+              finalDoc: finalDoc
+            });
+          }
+        });
+      }
+    });
+  } else {
+    res.redirect('/');
+  }
+});
+
+*/
 module.exports = router;
 
 

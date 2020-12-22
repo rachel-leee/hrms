@@ -45,7 +45,7 @@
 
             <li class="active">
                 <a href="/manager/applied-leaves"><span class="fa-stack fa-lg pull-left"><i
-                                class="fa fa-dashboard fa-stack-1x "></i></span> View Leaves</a>
+                                class="fa fa-dashboard fa-stack-1x "></i></span> View Shifts</a>
             </li>
             <li>
                 <a href="/manager/view-employees">
@@ -56,7 +56,7 @@
             </li>
             <li>
                 <a href="/manager/apply-for-leave"><span class="fa-stack fa-lg pull-left"><i
-                                class="fa fa-envelope-square fa-stack-1x "></i></span>Apply for Leave</a>
+                                class="fa fa-envelope-square fa-stack-1x "></i></span>Apply for Shift</a>
             </li>
             <li data-toggle="modal" data-target="#myModal">
                 <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-list-ol fa-stack-1x "></i></span>View
@@ -77,7 +77,7 @@
         <div class="container-fluid xyz">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>All Applied Leaves</h1><br>
+                    <h1>All Applied Shifts</h1><br>
                     <div style="height:600px; overflow: auto">
                         <% if(hasLeave === 1){ %>
                         <table id="example" class="display" cellspacing="0" style="height: 10%; overflow: auto;">
@@ -86,7 +86,7 @@
                                 <th>Title</th>
                                 <th>Type</th>
                                 <th>Date of Application</th>
-                                <th>Period of Leave</th>
+                                <th>Duration of Shift (Hours)</th>
                                 <th>Status</th>
                             </tr>
                             </thead>
@@ -95,7 +95,7 @@
                                 <th>Title</th>
                                 <th>Type</th>
                                 <th>Applied Date</th>
-                                <th>Period of Leave</th>
+                                <th>Duration of Shift (Hours)</th>
                                 <th>Status</th>
                             </tr>
                             </tfoot>
@@ -114,7 +114,7 @@
                             </tbody>
                         </table>
                         <% }else{ %>
-                        <p>You have not applied for any leave.</p>
+                        <p>You have not applied for any shift.</p>
                         <% } %>
                     </div>
                 </div>

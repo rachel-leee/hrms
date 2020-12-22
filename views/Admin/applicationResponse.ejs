@@ -43,7 +43,7 @@
                 </ul>
             </li>
             <li>
-                <a href="/admin/leave-applications"><span class="fa-stack fa-lg pull-left"><i class="fa fa-envelope-square fa-stack-1x "></i></span> Leave Applications</a></li>
+                <a href="/admin/leave-applications"><span class="fa-stack fa-lg pull-left"><i class="fa fa-envelope-square fa-stack-1x "></i></span> Shift Applications</a></li>
             <li data-toggle="modal" data-target="#myModal">
                 <a href="#"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-list-ol fa-stack-1x "></i></span>View Attendance</a>
             </li>
@@ -64,11 +64,11 @@
                     <h1>Application's Details</h1>
                     <br>
                     <form class="form-group-sm" action="/admin/respond-application" method="post">
-                        <h4>Title : <label id="title"><%=leave.title%></label></h4>
-                        <h4>Type : <label id="type"><%=leave.type%></label></h4>
+                        <h4>Branch : <label id="title"><%=leave.title%></label></h4>
+                        <h4>Timeslot : <label id="type"><%=leave.type%></label></h4>
                         <h4>Applicant's Name : <label id="name"><%=employee.name%></label></h4>
                         <h4>Applicant's Email : <label id="email"><%=employee.email%></label></h4>
-                        <h4>Period(Days): <label id="period"><%=leave.period%></label></h4>
+                        <h4>Duration(Hours): <label id="period"><%=leave.period%></label></h4>
                         <h4>Start Date : <label id="start"><%=moment(leave.startDate).format('MMMM Do YYYY')%></label></h4>
                         <h4>End Date : <label id="end"><%=moment(leave.end_date).format('MMMM Do YYYY')%></label></h4>
                         <h4>Applied Date : <label id="end"><%=moment(leave.end_date).format('MMMM Do YYYY')%></label></h4>
