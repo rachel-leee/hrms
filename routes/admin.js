@@ -521,6 +521,8 @@ router.get('/view-employee-attendance/:id', function viewEmployeeAttendance(req,
 
 });
 
+
+
 /**
  * Description:
  * Adds employee to the User Schema by getting attributes from the body of the post request.

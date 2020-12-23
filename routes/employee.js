@@ -5,6 +5,7 @@ var Attendance = require('../models/attendance');
 var Project = require('../models/project');
 var moment = require('moment');
 var User = require('../models/user');
+var Clock = require('../models/clock');
 var csrf = require('csurf');
 var csrfProtection = csrf();
 var moment = require('moment');
@@ -51,6 +52,14 @@ router.get('/apply-for-leave', function applyForLeave(req, res, next) {
     });
 });
 
+router.get('/clock-employee-attendance', function clockEmployeeAttendance(req, res, next) {
+    res.render('Employee/clockEmployeeAttendance', {
+        title: 'Clock Attendance',
+        csrfToken: req.csrfToken(),
+        userName: req.session.user.name
+    });
+});
+
 /**
  * Description:
  * Displays the list of all applied laves of the user.
@@ -80,6 +89,30 @@ router.get('/applied-leaves', function viewAppliedLeaves(req, res, next) {
             csrfToken: req.csrfToken(),
             hasLeave: hasLeave,
             leaves: leaveChunks,
+            userName: req.session.user.name
+        });
+    });
+
+});
+
+router.get('/view-clock', function viewClock(req, res, next) {
+    var clockChunks = [];
+
+    //find is asynchronous function
+    Clock.find({employeeID: req.user._id}).sort({_id: -1}).exec(function getClock(err, docs) {
+        var hasClock = 0;
+        if (docs.length > 0) {
+            hasClock = 1;
+        }
+        for (var i = 0; i < docs.length; i++) {
+            clockChunks.push(docs[i]);
+        }
+
+        res.render('Employee/viewClock', {
+            title: 'Clock Sheet',
+            csrfToken: req.csrfToken(),
+            hasClock: hasClock,
+            clock: clockChunks,
             userName: req.session.user.name
         });
     });
@@ -163,7 +196,34 @@ router.get('/view-attendance-current', function viewCurrentlyMarkedAttendance(re
         });
     });
 });
+/*
+router.get('/view-clock', function viewCurrentlyMarkedClock(req, res, next) {
+    var clockChunks = [];
 
+    Clock.find({
+        employeeID: req.session.user._id,
+        month: new Date().getMonth() + 1,
+        year: new Date().getFullYear()
+    }).sort({_id: -1}).exec(function getClockSheet(err, docs) {
+        var clockFound = 0;
+        if (docs.length > 0) {
+            clockFound = 1;
+        }
+        for (var i = 0; i < docs.length; i++) {
+            clockChunks.push(docs[i]);
+        }
+        res.render('Employee/viewClock', {
+            title: 'Clock Sheet',
+            month: new Date().getMonth() + 1,
+            csrfToken: req.csrfToken(),
+            clockFound: clockFound,
+            clockAttendance: clockChunks,
+            moment: moment,
+            userName: req.session.user.name
+        });
+    });
+});
+*/
 /**
  * Description:
  * Displays employee his/her profile.
@@ -291,6 +351,21 @@ router.post('/apply-for-leave', function applyForLeave(req, res, next) {
 
 });
 
+
+router.post('/clock-employee-attendance', function clockEmployeeAttendance(req, res, next) {
+
+    var newClock = new Clock();
+    newClock.employeeID = req.user._id;
+    newClock.entry = new Date(req.body.entry);
+    newClock.clockStatus = req.body.clockStatus;
+    newClock.save(function saveClockInAttendance(err) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect('/employee/view-clock');
+    });
+
+});
 /**
  * Description:
  * Marks the attendance of the employee in Attendance Schema
@@ -335,6 +410,27 @@ router.post('/mark-employee-attendance', function markEmployeeAttendance(req, re
 
 
 });
+/*
+router.post('/clock-employee-attendance', function clockEmployeeAttendance(req, res, next) {
+
+
+    var newClock = new Clock();
+    newClock.employeeID = req.user._id;
+    newClock.year = new Date().getFullYear();
+    newClock.month = new Date().getMonth() + 1;
+    newClock.date = new Date().getDate();
+    newClock.time = new Date().getTime();
+    newClock.status = req.body.status;
+    newClock.save(function saveClockInAttendance(err) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect('/employee/view-clock');
+    });
+
+});
+*/
+
 /*
 router.get('/logEntry/:date', function(req, res) {
   if (req.isAuthenticated()) {

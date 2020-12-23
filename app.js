@@ -82,6 +82,17 @@ app.use(function(err, req, res, next) {
 
 //testing 
 /*
+
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false
+});
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log('MongoDB connected');
+});
 app.get('/logEntry/:date', function(req, res) {
   if (req.isAuthenticated()) {
     const now = req.params.date;

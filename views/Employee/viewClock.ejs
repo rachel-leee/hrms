@@ -43,7 +43,7 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
 
-            <li class="active">
+            <li>
                 <a href="/employee/applied-leaves"><span class="fa-stack fa-lg pull-left"><i
                                 class="fa fa-dashboard fa-stack-1x "></i></span> View Shifts</a>
             </li>
@@ -51,7 +51,7 @@
                 <a href="/employee/apply-for-leave"><span class="fa-stack fa-lg pull-left"><i
                                 class="fa fa-envelope-square fa-stack-1x "></i></span>Apply for Shift</a>
             </li>
-            <li>
+            <li class="active">
                 <a href="/employee/view-clock"><span class="fa-stack fa-lg pull-left"><i
                                 class="fa fa-dashboard fa-stack-1x "></i></span> View Clock Attendance</a>
             </li>
@@ -78,44 +78,36 @@
         <div class="container-fluid xyz">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>All Applied Shifts</h1><br>
+                    <br>
                     <div style="height:600px; overflow: auto">
-                        <% if(hasLeave === 1){ %>
+                        <% if (hasClock === 1){ %>
                         <table id="example" class="display" cellspacing="0" style="height: 10%; overflow: auto;">
                             <thead>
                             <tr>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Date of Application</th>
-                                <th>Duration of Shift (Hours)</th>
+                                <th>Entry</th>
                                 <th>Status</th>
+
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Title</th>
-                                <th>Type</th>
-                                <th>Applied Date</th>
-                                <th>Duration of Shift (Hours)</th>
+                                <th>Entry</th>
                                 <th>Status</th>
                             </tr>
                             </tfoot>
                             <tbody>
-                            <% leaves.forEach(function(item){ %>
+                            <% clock.forEach(function(item){ %>
+
                             <tr>
-                                <td><%= item.title %></td>
-                                <td><%= item.type %></td>
-                                <td><%= new Date(item.appliedDate).toISOString().substring(0, 10); %></td>
-                                <td><%= item.period %></td>
-                                <td><%= item.adminResponse %></td>
+                                <td><%= item.entry %></td>
+                                <td><%= item.clockStatus %></td>
+
                             </tr>
-
                             <% }); %>
-
                             </tbody>
                         </table>
                         <% }else{ %>
-                        <p>You have not applied for any shift.</p>
+                        <p> Unable to find information</p>
                         <% } %>
                     </div>
                 </div>
@@ -130,7 +122,6 @@
 <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.js" charset="UTF-8"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js" charset="UTF-8"></script>
-<script src="/javascripts/confirmation.js"></script>
 <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script src="/javascripts/sidebar_menu.js"></script>
 <script>
@@ -147,12 +138,8 @@
                 $(this).html('<input type="text" class="form-control" placeholder="Search ' + title + '" />');
             }
         });
-        for (i = new Date().getFullYear(); i > 1950; i--) {
-            $('#year').append($('<option />').val(i).html(i));
-        }
-        $("#inc1").click(function () {
-            $('#current_salary').val(60000);
-        });
+
+        // DataTable
         var table = $('#example').DataTable();
 
         // Apply the search
@@ -167,6 +154,9 @@
                 }
             });
         });
+        for (i = new Date().getFullYear(); i > 1900; i--) {
+            $('#year').append($('<option />').val(i).html(i));
+        }
     });
 </script>
 </body>
@@ -238,4 +228,3 @@
     </div>
 </div>
 </html>
-
