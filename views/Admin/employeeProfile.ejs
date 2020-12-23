@@ -79,7 +79,7 @@
                     <div id="menu1" style="height:717px;">
                         <h1>Employee Profile</h1>
                         <br>
-                        <form method="get" action="/admin/view-employee-attendance/<%= employee._id %>"
+                        <form method="get" action="/admin/view-employee-clock/<%= employee._id %>"
                               class="form-group-sm">
                             <h4>Name : <label id="name"><%= employee.name %></label></h4>
                             <h4>Email : <label id="type"><%= employee.email %></label></h4>
@@ -103,8 +103,9 @@
                                     <%=employee.designation%>
                                     <%}%></label></h4>
                             <h4>Attendance : <label id="projects">
-                                    <button type="submit" class="form-control">View Attendance</button>
+                                    <button type="submit" class="form-control">View Clock Attendance</button>
                                 </label></h4>
+                              
                             <h4>Skills:
                                 <% if(employee.Skills.length === 0){ %>
                                 <label>N/A</label>

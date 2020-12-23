@@ -87,9 +87,11 @@
                                        name="entry">                            
                             </div>
                             <div class="form-group">
-                                <label for="clockStatus"><h4 style="font-size: x-large">Status:</h4></label>
-                                <input type="text" required="required" class="form-control" id="clockStatus"
-                                name="clockStatus"> 
+                                <label for="clockStatus"><h4 style="font-size: x-large">Status: </h4></label>
+                                <select class="form-control" id="clockStatus" name="clockStatus">
+                                    <option value="Clock In">Clock In</option>
+                                    <option value="Clock Out">Clock Out</option>
+                                </select>
                             </div>
 
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">

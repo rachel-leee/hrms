@@ -9,6 +9,7 @@ var config_passport = require('../config/passport.js');
 var moment = require('moment');
 var Leave = require('../models/leave');
 var Attendance = require('../models/attendance');
+var Clock = require('../models/clock');
 
 
 router.use('/', isLoggedIn, function isAuthenticated(req, res, next) {
@@ -521,7 +522,36 @@ router.get('/view-employee-attendance/:id', function viewEmployeeAttendance(req,
 
 });
 
+router.get('/view-employee-clock/:id', function viewEmployeeClock(req, res, next) {
+    var clockChunks = [];
+    Clock.find({employeeID: req.params.id}).sort({_id: -1}).exec(function getClockSheet(err, docs) {
+        var hasClock = 0;
+        if (docs.length > 0) {
+            hasClock = 1;
+        }
+        for (var i = 0; i < docs.length; i++) {
+            clockChunks.push(docs[i]);
+        }
 
+        User.findById(req.params.id, function getUser(err, user) {
+
+            res.render('Admin/employeeClockSheet', {
+                title: 'Employee Clock Sheet',
+                month: req.body.month,
+                csrfToken: req.csrfToken(),
+                hasClock: hasClock,
+                clock: clockChunks,
+                moment: moment,
+                userName: req.session.user.name
+                ,
+                'employee_name': user.name
+
+            })
+        });
+    });
+
+
+});
 
 /**
  * Description:
